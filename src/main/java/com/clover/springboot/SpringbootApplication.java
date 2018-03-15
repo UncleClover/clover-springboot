@@ -3,12 +3,14 @@ package com.clover.springboot;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.Filter;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -28,7 +30,7 @@ import com.clover.springboot.servlet.TipsServlet;
  * @Email qiang900714@126.com
  */
 @SpringBootApplication
-public class SpringbootApplication extends WebMvcConfigurerAdapter {
+public class SpringbootApplication extends WebMvcConfigurerAdapter implements ServletContextInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootApplication.class, args);
@@ -52,8 +54,6 @@ public class SpringbootApplication extends WebMvcConfigurerAdapter {
 		fastJsonHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
 
 		HttpMessageConverter<?> converter = fastJsonHttpMessageConverter;
-
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
 
 		return new HttpMessageConverters(converter);
 	}
@@ -90,5 +90,29 @@ public class SpringbootApplication extends WebMvcConfigurerAdapter {
 		filter.setUrlPatterns(urls);
 
 		return filter;
+	}
+
+	// @Bean
+	// public ServletListenerRegistrationBean<EventListener>
+	// eventListenerRegister(){
+	// return new ServletListenerRegistrationBean<EventListener>(new
+	// EventListener());
+	// }
+
+	/**
+	 * 自定义filter、servlet和listener配置方式
+	 * 
+	 * @author zhangdq
+	 */
+	@Override
+	public void onStartup(ServletContext servletContext) throws ServletException {
+		// servlet配置
+		// servletContext.addServlet("tips", new TipsServlet()).addMapping("/tips");
+
+		// 过滤器
+		// servletContext.addFilter("timeFilter", new TimeFilter()).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+
+		// listener配置
+		// servletContext.addListener(new EventListener());
 	}
 }
