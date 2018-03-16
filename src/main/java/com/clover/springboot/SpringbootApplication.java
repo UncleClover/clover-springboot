@@ -29,6 +29,15 @@ import com.clover.springboot.interceptor.LoggerInterceptor;
 import com.clover.springboot.listener.EventListener;
 import com.clover.springboot.servlet.TipsServlet;
 
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 /**
  * spring boot 程序入口
  * 
@@ -37,6 +46,7 @@ import com.clover.springboot.servlet.TipsServlet;
  * @Email qiang900714@126.com
  */
 @SpringBootApplication
+@EnableSwagger2
 public class SpringbootApplication extends WebMvcConfigurerAdapter implements ServletContextInitializer {
 	@Autowired
 	private LoggerInterceptor loggerInterceptor;
@@ -167,5 +177,33 @@ public class SpringbootApplication extends WebMvcConfigurerAdapter implements Se
 				registry.addMapping("user/**").allowedOrigins("http://127.0.0.1:8080");
 			}
 		};
+	}
+
+	/**
+	 * swagger2
+	 * 
+	 * @author zhangdq
+	 * @time 2018年3月16日 上午11:31:20
+	 * @Email qiang900714@126.com
+	 * @return
+	 */
+	@Bean
+	public Docket accessToken() {
+		return new Docket(DocumentationType.SWAGGER_2).groupName("api")// 定义组
+				.select() // 选择那些路径和 api 会生成 document
+				.apis(RequestHandlerSelectors.basePackage("com.clover.springboot.controller")) // 拦截的包路径
+				.paths(PathSelectors.regex("/*/.*"))// 拦截的接口路径
+				.build() // 创建
+				.apiInfo(apiInfo()); // 配置说明
+	}
+
+	private ApiInfo apiInfo() {
+		return new ApiInfoBuilder()//
+				.title("spring boot")// 标题
+				.description("spring boot")// 描述
+				.termsOfServiceUrl("https://github.com/UncleClover")//
+				.contact(new Contact("UncleClover", "https://github.com/UncleClover", "qiang900714@126.com"))// 联系
+				.version("1.0")// 版本
+				.build();
 	}
 }

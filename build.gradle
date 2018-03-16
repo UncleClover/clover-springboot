@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.4.7.RELEASE'
+		springBootVersion = "1.4.7.RELEASE"
 	}
 	repositories {
 		mavenCentral()
@@ -11,12 +11,12 @@ buildscript {
 	}
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
+apply plugin: "java"
+apply plugin: "eclipse"
+apply plugin: "org.springframework.boot"
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+group = "com.example"
+version = "0.0.1-SNAPSHOT"
 sourceCompatibility = 1.7
 
 repositories {
@@ -29,17 +29,19 @@ sourceSets{
 		resources{srcDirs = ["src/main/resources"]}
 	}
 	test{
-		java{srcDirs=['src/main/test']}
-        resources{srcDirs=['src/main/resources']}
+		java{srcDirs=["src/main/test"]}
+        resources{srcDirs=["src/main/resources"]}
     }
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-aop')
-	compile('org.springframework.boot:spring-boot-starter-log4j2')
-	compile('org.springframework.boot:spring-boot-starter-freemarker')
-	compile('com.alibaba:fastjson:1.2.35')
-	compile "commons-io:commons-io:2.4"
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-aop")
+	compile("org.springframework.boot:spring-boot-starter-log4j2")
+	compile("org.springframework.boot:spring-boot-starter-freemarker")
+	compile("com.alibaba:fastjson:1.2.35")
+	compile("commons-io:commons-io:2.4")
+	compile("io.springfox:springfox-swagger2:2.7.0")
+	compile("io.springfox:springfox-swagger-ui:2.7.0")
+	testCompile("org.springframework.boot:spring-boot-starter-test")
 }
