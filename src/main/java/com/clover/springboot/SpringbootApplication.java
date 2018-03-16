@@ -16,7 +16,9 @@ import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -136,5 +138,34 @@ public class SpringbootApplication extends WebMvcConfigurerAdapter implements Se
 
 		// listener配置
 		// servletContext.addListener(new EventListener());
+	}
+
+	/**
+	 * 解决跨域问题1
+	 * @author zhangdq
+	 * @time 2018年3月16日 上午11:20:19
+	 * @Email qiang900714@126.com
+	 * @return
+	 */
+//	@Override
+//	public void addCorsMappings(CorsRegistry registry) {
+//		registry.addMapping("user/**").allowedOrigins("http://127.0.0.1:8080");
+//	}
+
+	/**
+	 * 解决跨域问题2
+	 * @author zhangdq
+	 * @time 2018年3月16日 上午11:20:17
+	 * @Email qiang900714@126.com
+	 * @return
+	 */
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurerAdapter() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("user/**").allowedOrigins("http://127.0.0.1:8080");
+			}
+		};
 	}
 }

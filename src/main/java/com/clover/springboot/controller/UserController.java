@@ -29,6 +29,9 @@ public class UserController {
 	 */
 	@RequestMapping("/query")
 	@ResponseBody
+	
+	// 细颗粒解决跨域问题
+	// @CrossOrigin(origins = "http://127.0.0.1:8080")
 	public User getUserInfo(){
 		User user = new User();
 		user.setAddr("河南郑州");
