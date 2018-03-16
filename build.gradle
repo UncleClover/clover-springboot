@@ -3,8 +3,8 @@ buildscript {
 		springBootVersion = '1.4.7.RELEASE'
 	}
 	repositories {
-		// mavenCentral()
-		maven { url "http://127.0.0.1:8082/nexus/content/groups/public/"} 
+		mavenCentral()
+		// maven { url "http://127.0.0.1:8082/nexus/content/groups/public/"} 
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -40,5 +40,6 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-log4j2')
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
 	compile('com.alibaba:fastjson:1.2.35')
+	compile "commons-io:commons-io:2.4"
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
