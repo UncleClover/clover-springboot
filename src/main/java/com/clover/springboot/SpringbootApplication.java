@@ -6,9 +6,12 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -55,6 +58,37 @@ public class SpringbootApplication extends WebMvcConfigurerAdapter implements Se
 		SpringApplication.run(SpringbootApplication.class, args);
 	}
 
+//	
+//	@Bean
+//	@ConditionalOnMissingBean
+//	public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) {
+//		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+//		sqlSessionFactoryBean.setDataSource(dataSource);
+//
+//		ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
+//		Resource mybatisConfigXml = resourcePatternResolver.getResource("classpath:mybatis/mybatis-config.xml");
+//		sqlSessionFactoryBean.setConfigLocation(mybatisConfigXml);
+//
+//		// 设置mapper映射文件
+//		Resource[] mapperXml;
+//		try {
+//			mapperXml = resourcePatternResolver.getResources("classpath:mybatis/mapper/*.xml");
+//			sqlSessionFactoryBean.setMapperLocations(mapperXml);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return sqlSessionFactoryBean;
+//	}
+	
+	@Bean
+	@ConditionalOnBean(SqlSessionFactoryBean.class)
+	public MapperScannerConfigurer mapperScannerConfigurer() {
+		MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+		mapperScannerConfigurer.setBasePackage("com.clover.springboot.dao");
+		return mapperScannerConfigurer;
+	}
+	
 	/**
 	 * JSON转换
 	 * 

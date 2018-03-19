@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.clover.springboot.dao.UserMapper">
+	<insert id="insert" parameterType="com.clover.model.User">
+		insert into t_chm_user (USER_ID, USER_ACCOUNT, USER_NAME, ADDRESS, SEX)
+		values (#{id}, #{id}, #{name}, #{addr}, #{sex})
+	</insert>
+</mapper>

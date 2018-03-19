@@ -3,8 +3,9 @@ buildscript {
 		springBootVersion = "1.4.7.RELEASE"
 	}
 	repositories {
-		mavenCentral()
-		// maven { url "http://127.0.0.1:8082/nexus/content/groups/public/"} 
+		// mavenCentral()
+		maven { url "http://127.0.0.1:8082/nexus/content/groups/public/"} 
+		// maven {url "http://maven.aliyun.com/nexus/content/groups/public/"}
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -15,12 +16,14 @@ apply plugin: "java"
 apply plugin: "eclipse"
 apply plugin: "org.springframework.boot"
 
-group = "com.example"
+group = "com.clover"
 version = "0.0.1-SNAPSHOT"
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+	// mavenCentral()
+	maven { url "http://127.0.0.1:8082/nexus/content/groups/public/"} 
+	//maven {url "http://maven.aliyun.com/nexus/content/groups/public/"}
 }
 
 sourceSets{
@@ -30,18 +33,26 @@ sourceSets{
 	}
 	test{
 		java{srcDirs=["src/main/test"]}
-        resources{srcDirs=["src/main/resources"]}
     }
 }
 
+configurations{
+	// 在整个构建过程中排除ch.qos.logback:logback-classic
+	all*.exclude group: "ch.qos.logback", module: "logback-classic"
+}
+
 dependencies {
-	compile("org.springframework.boot:spring-boot-starter-web")
-	compile("org.springframework.boot:spring-boot-starter-aop")
-	compile("org.springframework.boot:spring-boot-starter-log4j2")
-	compile("org.springframework.boot:spring-boot-starter-freemarker")
-	compile("com.alibaba:fastjson:1.2.35")
-	compile("commons-io:commons-io:2.4")
-	compile("io.springfox:springfox-swagger2:2.7.0")
-	compile("io.springfox:springfox-swagger-ui:2.7.0")
-	testCompile("org.springframework.boot:spring-boot-starter-test")
+	compile "org.springframework.boot:spring-boot-starter-web"
+	compile "org.springframework.boot:spring-boot-starter-aop"
+	compile "org.springframework.boot:spring-boot-starter-log4j2"
+	compile "org.springframework.boot:spring-boot-starter-freemarker"
+	// compile "org.springframework:spring-tx:3.0.5.RELEASE"
+	compile "com.alibaba:fastjson:1.2.35"
+	compile "commons-io:commons-io:2.4"
+	compile "io.springfox:springfox-swagger2:2.7.0"
+	compile "io.springfox:springfox-swagger-ui:2.7.0"
+	// compile "org.mybatis:mybatis:3.4.4"
+	// compile "org.mybatis:mybatis-spring:1.3.1"
+	// compile "com.oracle:ojdbc14:10.2.0.4.0"
+	testCompile"org.springframework.boot:spring-boot-starter-test"
 }
