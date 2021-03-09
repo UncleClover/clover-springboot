@@ -18,7 +18,7 @@ public class HelloFreemarker {
 	@RequestMapping("hi")
 	public String hello(Map<String, Object> map) {
 
-		map.put("msg", "Hello Freemarker");
+		map.put("msg", "Hello Freemarker!fuck");
 		return "hello";
 	}
 }

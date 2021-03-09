@@ -1,0 +1,6 @@
+/bin/
+.classpath
+*.bin
+*.lock
+.project
+*.prefs

@@ -6,17 +6,13 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -30,6 +26,7 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.clover.springboot.filter.TimeFilter;
 import com.clover.springboot.interceptor.LoggerInterceptor;
 import com.clover.springboot.listener.EventListener;
+import com.clover.springboot.servlet.HelloServlet;
 import com.clover.springboot.servlet.TipsServlet;
 
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -81,13 +78,13 @@ public class SpringbootApplication extends WebMvcConfigurerAdapter implements Se
 //		return sqlSessionFactoryBean;
 //	}
 	
-	@Bean
-	@ConditionalOnBean(SqlSessionFactoryBean.class)
-	public MapperScannerConfigurer mapperScannerConfigurer() {
-		MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-		mapperScannerConfigurer.setBasePackage("com.clover.springboot.dao");
-		return mapperScannerConfigurer;
-	}
+//	@Bean
+//	@ConditionalOnBean(SqlSessionFactoryBean.class)
+//	public MapperScannerConfigurer mapperScannerConfigurer() {
+//		MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+//		mapperScannerConfigurer.setBasePackage("com.clover.springboot.dao");
+//		return mapperScannerConfigurer;
+//	}
 	
 	/**
 	 * JSON转换
@@ -119,10 +116,10 @@ public class SpringbootApplication extends WebMvcConfigurerAdapter implements Se
 	 * @Email qiang900714@126.com
 	 * @return
 	 */
-	@Bean
-	public ServletRegistrationBean tipsServletRegister() {
-		return new ServletRegistrationBean(new TipsServlet(), "/tips");
-	}
+//	@Bean
+//	public ServletRegistrationBean tipsServletRegister() {
+//		return new ServletRegistrationBean(new TipsServlet(), "/tips");
+//	}
 
 	/**
 	 * 时间过滤器
@@ -158,10 +155,12 @@ public class SpringbootApplication extends WebMvcConfigurerAdapter implements Se
 		return new ServletListenerRegistrationBean<EventListener>(new EventListener());
 	}
 
+	/**
+	 * 拦截器配置
+	 */
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(loggerInterceptor);
-
 	}
 
 	/**
@@ -172,8 +171,8 @@ public class SpringbootApplication extends WebMvcConfigurerAdapter implements Se
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		// servlet配置
-		// servletContext.addServlet("tips", new
-		// TipsServlet()).addMapping("/tips");
+		servletContext.addServlet("tips", new TipsServlet()).addMapping("/tips");
+		servletContext.addServlet("helloservlet", new HelloServlet()).addMapping("/helloservlet");
 
 		// 过滤器
 		// servletContext.addFilter("timeFilter", new
@@ -214,7 +213,7 @@ public class SpringbootApplication extends WebMvcConfigurerAdapter implements Se
 	}
 
 	/**
-	 * swagger2
+	 * swagger2配置
 	 * 
 	 * @author zhangdq
 	 * @time 2018年3月16日 上午11:31:20
