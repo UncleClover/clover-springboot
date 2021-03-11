@@ -56,5 +56,6 @@ dependencies {
 	// compile "com.oracle:ojdbc14:10.2.0.4.0"
 	compile "org.springframework.boot:spring-boot-starter-data-redis"
 	compile "org.apache.commons:commons-pool2"
+	compile "org.apache.shiro:shiro-spring:1.6.0"
 	testCompile"org.springframework.boot:spring-boot-starter-test"
 }

@@ -10,7 +10,7 @@
 		</Console>
 	</appenders>
 	<loggers>
-		<logger name="com.clover" level="debug" />
+		<logger name="com.clover" level="info" />
 		<root level="info">
 			<appenderref ref="CONSOLE" />
 		</root>

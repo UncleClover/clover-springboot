@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.clover.model.User;
+import com.clover.springboot.pojo.User;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -45,7 +45,6 @@ public class UserController {
 		user.setName("UncleClover");
 		user.setSex("boy");
 		user.setAge(22);
-		user.setBirthday(new Date());
 		return user;
 	}
 }
